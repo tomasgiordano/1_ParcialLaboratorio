@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1557239808 source:d:\tomasgiordano_primerparcial\controlabm.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"controlABM.h"
+
+1557240192 d:\tomasgiordano_primerparcial\controlabm.h
+
+1557237245 source:d:\tomasgiordano_primerparcial\main.c
+	<stdio.h>
+	<stdlib.h>
+	"controlABM.h"
+
