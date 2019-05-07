@@ -258,6 +258,11 @@ void modifytituloPelicula(ePelicula list[],int len, int position)
 
     printf("Ingrese el nuevo TITULO del pelicula |%s,%s|: ",list[position].fechaDeEstreno,list[position].titulo);
     gets(newtitulo);
+    while(strlen(newtitulo)>25)
+    {
+        printf("ERROR. Ingrese el titulo nuevamente: ");
+        gets(newtitulo);
+    }
 
     strcpy(list[position].titulo,"");
     strcat(list[position].titulo,newtitulo);
@@ -277,13 +282,16 @@ void modifytituloPelicula(ePelicula list[],int len, int position)
 
 void modifyfechaDeEstrenoPelicula(ePelicula list[],int len, int position)
 {
-    char newfechaDeEstreno[51];
+    char newfechaDeEstreno[12];
     fflush(stdin);
 
     printf("Ingrese la nueva FECHA DE ESTRENO de la pelicula |%s,%s|\nDe la siguiente manera dd/mm/aaaa: ",list[position].fechaDeEstreno,list[position].titulo);
-    fgets(newfechaDeEstreno,51,stdin);
-    newfechaDeEstreno[strlen(newfechaDeEstreno)-1]='\0';
-
+    gets(newfechaDeEstreno);
+    while(strlen(newfechaDeEstreno)>11)
+    {
+        printf("ERROR. Ingrese la fecha de estreno nuevamente: ");
+        gets(newfechaDeEstreno);
+    }
     strcpy(list[position].fechaDeEstreno,"");
     strcat(list[position].fechaDeEstreno,newfechaDeEstreno);
 
