@@ -761,12 +761,13 @@ void addPeliculaMenu(ePelicula list[],int lenP,eGenero Generos[],int lenG,eActor
  *
  */
 
-void removePeliculaMenu(ePelicula list[],int len)
+void removePeliculaMenu(ePelicula list[],int len,eGenero Generos[],int lenG)
 {
     int id;
     int success;
 
     printf("\n--MENU DE BAJA DE pelicula--\n\n");
+    printPeliculas(list,len,Generos,lenG);
     printf("Ingrese el id del pelicula que desea eliminar: ");
     scanf("%d",&id);
 
@@ -798,7 +799,8 @@ void modifyPeliculaMenu(ePelicula list[], int lenP,eGenero Generos[],int lenG,eA
     int option;
 
     printf("\n--MENU DE MODIFICACION DE PELICULA--\n\n");
-    printf("Ingrese el id del pelicula que desea modificar: ");
+    printPeliculas(list,lenP,Generos,lenG);
+    printf("\nIngrese el id del pelicula que desea modificar: ");
     scanf("%d",&id);
 
     position=findPeliculaById(list,lenP,id);

@@ -61,7 +61,7 @@ void validarTitulo(ePelicula[],int lenP);
 // MENU FUNCTIONS //
 
 void addPeliculaMenu(ePelicula[],int lenP,eGenero[],int lenG,eActor[],int lenA);
-void removePeliculaMenu(ePelicula[],int len);
+void removePeliculaMenu(ePelicula[],int len,eGenero[],int lenG);
 void modifyPeliculaMenu(ePelicula[],int lenP,eGenero[],int lenG,eActor[],int lenA);
 void showPeliculasMenu(ePelicula[],int lenP,eGenero[],int lenG,ePelicula[],eActor[],int lenA);
 

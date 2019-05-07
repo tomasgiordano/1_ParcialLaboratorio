@@ -53,7 +53,7 @@ int main()
             case 3:
                 if(oneE)
                 {
-                    removePeliculaMenu(list,ELEMENTS);
+                    removePeliculaMenu(list,ELEMENTS,Generos,G);
                 }
                 else
                 {
