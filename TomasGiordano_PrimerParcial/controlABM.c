@@ -45,7 +45,7 @@ void initPelicula(ePelicula list[],int len)
 * \return   int space(-1 o 0)
 *
 */
-int addPelicula(ePelicula list[], int len, char titulo[],char fechaDeEstreno[],float salary,int Genero)
+int addPelicula(ePelicula list[], int len, char titulo[],int Actor,int Genero,int dia,int mes,int anio)
 {
     int i;
     int space=-1;
@@ -55,8 +55,10 @@ int addPelicula(ePelicula list[], int len, char titulo[],char fechaDeEstreno[],f
         if(list[i].isEmpty==1)
         {
             strncpy(list[i].titulo,titulo,51);
-            strncpy(list[i].fechaDeEstreno,fechaDeEstreno,51);
-            //list[i].salary=salary;
+            list[i].fechaDeEstreno.dia=dia;
+            list[i].fechaDeEstreno.mes=mes;
+            list[i].fechaDeEstreno.anio=anio;
+            list[i].idActor=Actor;
             list[i].idGenero=Genero;
 
             list[i].isEmpty=0;
@@ -115,13 +117,13 @@ int removePelicula(ePelicula list[], int len, int id)
     if(find!=-1)
     {
         success=1;
-        printf("Esta seguro que quiere eliminar al pelicula | %s, %s | ?\n 1)Estoy seguro.\n 2)Volver.\n Ingrese una opcion: ",list[find].fechaDeEstreno,list[find].titulo);
+        printf("Esta seguro que quiere eliminar al pelicula | %s | ?\n 1)Estoy seguro.\n 2)Volver.\n Ingrese una opcion: ",list[find].titulo);
         scanf("%d",&securityOpction);
         switch(securityOpction)
         {
             case 1:
                 list[find].isEmpty=1;
-                printf("\npelicula eliminado de la lista con exito!\n\n");
+                printf("\nPelicula eliminada de la lista con exito!\n\n");
             break;
             case 2:
                 printf("\nVolviendo...\n\n");
@@ -150,59 +152,38 @@ void sortPeliculas(ePelicula list[], int lenP,ePelicula copy[])
 {
     int i;
     int j;
-    int comp;
-    //comp=stricmp(list[i].fechaDeEstreno,list[j].fechaDeEstreno);
 
     for(i=0;i<lenP;i++)
     {
         for(j=i+1;j<lenP;j++)
         {
-            comp=stricmp(list[i].fechaDeEstreno,list[j].fechaDeEstreno);
-
-            if(list[i].idGenero>list[j].idGenero)
+            if(list[i].fechaDeEstreno.anio>list[j].fechaDeEstreno.anio)
             {
                 copy[0].id=list[i].id;
                 copy[0].idGenero=list[i].idGenero;
-                strcpy(copy[0].fechaDeEstreno,list[i].fechaDeEstreno);
+                copy[0].fechaDeEstreno.dia=list[i].fechaDeEstreno.dia;
+                copy[0].fechaDeEstreno.mes=list[i].fechaDeEstreno.mes;
+                copy[0].fechaDeEstreno.anio=list[i].fechaDeEstreno.anio;
                 strcpy(copy[0].titulo,list[i].titulo);
-                //copy[0].salary=list[i].salary;
+                copy[0].idActor=list[i].idActor;
                 copy[0].isEmpty=list[i].isEmpty;
 
                 list[i].id=list[j].id;
                 list[i].idGenero=list[j].idGenero;
-                strcpy(list[i].fechaDeEstreno,list[j].fechaDeEstreno);
+                list[i].fechaDeEstreno.dia=list[j].fechaDeEstreno.dia;
+                list[i].fechaDeEstreno.mes=list[j].fechaDeEstreno.mes;
+                list[i].fechaDeEstreno.anio=list[j].fechaDeEstreno.anio;
                 strcpy(list[i].titulo,list[j].titulo);
-                //list[i].salary=list[j].salary;
+                list[i].idActor=list[j].idActor;
                 list[i].isEmpty=list[j].isEmpty;
 
                 list[j].id=copy[0].id;
                 list[j].idGenero=copy[0].idGenero;
-                strcpy(list[j].fechaDeEstreno,copy[0].fechaDeEstreno);
+                list[j].fechaDeEstreno.dia=copy[0].fechaDeEstreno.dia;
+                list[j].fechaDeEstreno.mes=copy[0].fechaDeEstreno.mes;
+                list[j].fechaDeEstreno.anio=copy[0].fechaDeEstreno.anio;
                 strcpy(list[j].titulo,copy[0].titulo);
-                //list[j].salary=copy[0].salary;
-                list[j].isEmpty=copy[0].isEmpty;
-            }
-            else if(comp>0&&list[i].idGenero==list[j].idGenero)
-            {
-                copy[0].id=list[i].id;
-                copy[0].idGenero=list[i].idGenero;
-                strcpy(copy[0].fechaDeEstreno,list[i].fechaDeEstreno);
-                strcpy(copy[0].titulo,list[i].titulo);
-                //copy[0].salary=list[i].salary;
-                copy[0].isEmpty=list[i].isEmpty;
-
-                list[i].id=list[j].id;
-                list[i].idGenero=list[j].idGenero;
-                strcpy(list[i].fechaDeEstreno,list[j].fechaDeEstreno);
-                strcpy(list[i].titulo,list[j].titulo);
-                //list[i].salary=list[j].salary;
-                list[i].isEmpty=list[j].isEmpty;
-
-                list[j].id=copy[0].id;
-                list[j].idGenero=copy[0].idGenero;
-                strcpy(list[j].fechaDeEstreno,copy[0].fechaDeEstreno);
-                strcpy(list[j].titulo,copy[0].titulo);
-                //list[j].salary=copy[0].salary;
+                list[j].idActor=copy[0].idActor;
                 list[j].isEmpty=copy[0].isEmpty;
             }
         }
@@ -256,7 +237,7 @@ void modifytituloPelicula(ePelicula list[],int len, int position)
     char newtitulo[26];
     fflush(stdin);
 
-    printf("Ingrese el nuevo TITULO del pelicula |%s,%s|: ",list[position].fechaDeEstreno,list[position].titulo);
+    printf("Ingrese el nuevo TITULO del pelicula | %s |: ",list[position].titulo);
     gets(newtitulo);
     while(strlen(newtitulo)>25)
     {
@@ -282,43 +263,39 @@ void modifytituloPelicula(ePelicula list[],int len, int position)
 
 void modifyfechaDeEstrenoPelicula(ePelicula list[],int len, int position)
 {
-    char newfechaDeEstreno[12];
-    fflush(stdin);
+    int dia;
+    int mes;
+    int anio;
 
-    printf("Ingrese la nueva FECHA DE ESTRENO de la pelicula |%s,%s|\nDe la siguiente manera dd/mm/aaaa: ",list[position].fechaDeEstreno,list[position].titulo);
-    gets(newfechaDeEstreno);
-    while(strlen(newfechaDeEstreno)>11)
+    printf("Ingrese la nueva FECHA DE ESTRENO de la pelicula |%s|\n",list[position].titulo);
+    printf("Dia: ");
+    scanf("%d",&dia);
+    while(dia>31||dia<1)
     {
-        printf("ERROR. Ingrese la fecha de estreno nuevamente: ");
-        gets(newfechaDeEstreno);
+        printf("ERROR. Ingrese un dia valido: ");
+        scanf("%d",&dia);
     }
-    strcpy(list[position].fechaDeEstreno,"");
-    strcat(list[position].fechaDeEstreno,newfechaDeEstreno);
+    printf("Mes: ");
+    scanf("%d",&mes);
+    while(mes>12||mes<1)
+    {
+        printf("ERROR. Ingrese un mes valido: ");
+        scanf("%d",&mes);
+    }
+    printf("Año: ");
+    scanf("%d",&anio);
+    while(anio>2025||anio<1800)
+    {
+        printf("ERROR. Ingrese un año valido: ");
+        scanf("%d",&anio);
+    }
+
+    list[position].fechaDeEstreno.dia=dia;
+    list[position].fechaDeEstreno.mes=mes;
+    list[position].fechaDeEstreno.anio=anio;
 
     printf("\nFecha de estreno modificada exitosamente!\n\n");
 }
-
-/** \brief  Modifica el salario de un pelicula
- *
- * \param   ePelicula list[]
- * \param   int len
- * \param   int position
- *
- * \return  (void)
- *
- */
-
-//void modifySalaryPelicula(ePelicula list[],int len, int position)
-//{
-//    int newSalary;
-
-//    printf("Ingrese el nuevo SALARIO del pelicula |%s,%s|: $",list[position].fechaDeEstreno,list[position].titulo);
-//    scanf("%d",&newSalary);
-
-//    list[position].salary=newSalary;
-
-//    printf("\nSalario modificado exitosamente!\n\n");
-//}
 
 /** \brief  Modifica el Genero de un pelicula
  *
@@ -336,7 +313,7 @@ void modifyGeneroPelicula(ePelicula list[],int lenP, int position,eGenero Genero
 {
     int newGenero;
 
-    printf("Ingrese el nuevo GENERO del pelicula |%s,%s|:\n",list[position].fechaDeEstreno,list[position].titulo);
+    printf("Ingrese el nuevo GENERO del pelicula | %s |:\n",list[position].titulo);
     newGenero=validateGenero(Generos,lenG);
     list[position].idGenero=newGenero;
 
@@ -385,7 +362,7 @@ int validateGenero(eGenero Generos[],int lenG)
 {
     int newActor;
 
-    printf("Ingrese el nuevo ACTOR de la pelicula |%s,%s|:\n",list[position].fechaDeEstreno,list[position].titulo);
+    printf("Ingrese el nuevo ACTOR de la pelicula | %s |:\n",list[position].titulo);
     newActor=validateActor(Actors,lenA);
     list[position].idActor=newActor;
 
@@ -439,7 +416,7 @@ void printOnePelicula(ePelicula list[],int lenP,eGenero Generos[],int lenG,int p
     int GeneroDescription;
     GeneroDescription=searchGeneroDescription(list,Generos,lenG,position);
 
-    printf("\t%d\t%s\t\t%s\t\t\t%s\n",list[position].id,list[position].fechaDeEstreno,list[position].titulo,Generos[GeneroDescription].descripcion);
+    printf("\t%d\t%d/%d/%d\t\t%s\t\t\t%s\n",list[position].id,list[position].fechaDeEstreno.dia,list[position].fechaDeEstreno.mes,list[position].fechaDeEstreno.anio,list[position].titulo,Generos[GeneroDescription].descripcion);
 }
 
 /** \brief  Busca la descripcion del Genero segun el id Genero del pelicula. Devuelve la posicion de "Generos" en la que
@@ -487,13 +464,6 @@ void printOnePelicula(ePelicula list[],int lenP,eGenero Generos[],int lenG,int p
     {
         list[position].titulo[i]=tolower(list[position].titulo[i]);
     }
-
-    list[position].fechaDeEstreno[0]=toupper(list[position].fechaDeEstreno[0]);
-    for(i=1;i<51;i++)
-    {
-        list[position].fechaDeEstreno[i]=tolower(list[position].fechaDeEstreno[i]);
-    }
-
  }
 
  /** \brief Hardcodea una lista de 20 peliculas
@@ -510,102 +480,19 @@ void hardcodePeliculaList(ePelicula list[],int tam)
     int i;
 
     char titulos[][51]= {"Avengers EndGame","Thor","Cellular","Men in Black 4","IronMan","13  Going on 30","Lucy","Nace una estrella","¿Dime con cuantos?","Guardianes de la galaxia","A perfect murder","La isla","Que paso ayer","Home Alone 3","Deadpool","Sherlock Holmes","Men in Black 3","Avengers infinity war","Grandes esperanzas","SWAT","XxX"};
-    char fechaDeEstrenos[][51]= {"20/4/2019","10/6/2013","2/5/2004","10/7/2019","5/9/2012","7/5/2004","9/2/2014","8/3/2018","4/4/2010","20/5/2014","6/8/1995","3/10/2005","5/2/2013","6/10/2005","7/12/2015","5/6/2011","2/5/2010","6/4/2017","8/12/1995","11/5/1992"};
-    //float salary[]= {22000,22000,15000,4000,21000,6000,9000,6000,8000,11000,8000,21000,4000,9000,6000,4000,12000,8000,31000,24000,35000};
+    eFecha fechas[]={{20,4,2019},{10,6,2013},{2,5,2004},{10,7,2019},{5,9,2012},{7,5,2004},{9,2,2014},{8,3,2018},{4,4,2010},{20,5,2014},{6,8,1995},{3,10,2005},{5,2,2013},{6,10,2005},{7,12,2015},{5,6,2011},{2,5,2010},{6,4,2017},{8,12,1995},{11,5,1992}};
     int Genero[]={1,2,3,4,1,2,3,4,2,1,3,4,2,1,2,4,1,3,4,1};
 
     for(i=0; i<tam; i++)
     {
         strcpy(list[i].titulo, titulos[i]);
-        strcpy(list[i].fechaDeEstreno, fechaDeEstrenos[i]);
-        //list[i].salary = salary[i];
+        list[i].fechaDeEstreno.dia=fechas[i].dia;
+        list[i].fechaDeEstreno.mes=fechas[i].mes;
+        list[i].fechaDeEstreno.anio=fechas[i].anio;
         list[i].isEmpty = 0;
         list[i].idGenero = Genero[i];
     }
 }
-
-/** \brief  Hace la suma de todos los salarios de todos los peliculas y devuelve el total
- *
- * \param   ePelicula list[]
- * \param   int len
- *
- * \return  float total
- *
- */
-
- //float salaryTotal(ePelicula list[],int len)
- //{
- //    int i;
- //    float total=0;
-
-//     for(i=0;i<len;i++)
-//     {
- //       if(list[i].isEmpty==0)
-  //      {
-   //         total=list[i].salary+total;
-   //     }
-  //   }
-   //  return total;
- //}
-
- /** \brief Hace la cuenta del promedio de todos los salarios de la lista. Devuelve el promedio.
-  *
-  * \param  ePelicula list[]
-  * \param  int len
-  *
-  * \return float average
-  *
-  */
-
-  //float salaryAverage(ePelicula list[],int len)
-  //{
-  //    int i;
-  //    int counter=0;
-  //    float average=0;
-  //    float total;
-
-  //    total=salaryTotal(list,len);
-
- //     for(i=0;i<len;i++)
- //     {
- //         if(list[i].isEmpty==0)
- //         {
- //             counter=counter+1;
- //         }
- //     }
-
- //     average=(float)total/counter;
-
- //     return average;
-  //}
-
-/** \brief  Devuelve la cantidad de peliculas que su sueldo supera el promedio de sueldos
-*
-* \param    ePelicula list[]
-* \param    int len
-*
-* \return   int counterPelicula
-*
-*/
-
-//int salaryAverageOvercome(ePelicula list[],int len)
-//{
-//    int i;
-//    int counterPelicula=0;
-//    float average;
-
-//    average=salaryAverage(list,len);
-
-//    for(i=0;i<len;i++)
-//    {
-//        if(list[i].salary>average&&list[i].isEmpty==0)
-//        {
-//            counterPelicula=counterPelicula+1;
-//        }
-//    }
-
-//       return counterPelicula;
-//}
 
 /** \brief  Si no hay ningun pelicula en la lista, devuelve 0, si hay por lo menos uno, devuelve 1.
 *
@@ -631,6 +518,15 @@ int onePelicula(ePelicula list[],int len)
     }
     return oneE;
 }
+
+/** \brief
+ *
+ * \param
+ * \param
+ * \return
+ *
+ */
+
 
 void printActors(eActor Actors[],int lenA)
 {
@@ -706,12 +602,14 @@ void sortActors(eActor Actors[],int lenA)
  *
  */
 
-void addPeliculaMenu(ePelicula list[],int lenP,eGenero Generos[],int lenG,eActor Actors[],int lenA)
+void addPeliculaMenu(ePelicula list[],int lenP,eGenero Generos[],int lenG,eActor Actors[],int lenA,eFecha fechas[])
 {
     int space;
 
     char titulo[26];
-    char fechaDeEstreno[12];
+    int dia;
+    int mes;
+    int anio;
     int Actor;
     int Genero;
 
@@ -725,12 +623,27 @@ void addPeliculaMenu(ePelicula list[],int lenP,eGenero Generos[],int lenG,eActor
         gets(titulo);
     }
 
-    printf("Ingrese la fecha de estreno(dd/mm/aaaa): ");
-    gets(fechaDeEstreno);
-    while(strlen(fechaDeEstreno)>10)
+    printf("Ingrese la fecha de estreno:\n");
+    printf("Dia: ");
+    scanf("%d",&dia);
+    while(dia>31||dia<1)
     {
-        printf("ERROR. Ingrese nuevamente la fecha de estreno: ");
-        gets(fechaDeEstreno);
+        printf("ERROR. Ingrese un dia valido: ");
+        scanf("%d",&dia);
+    }
+    printf("Mes: ");
+    scanf("%d",&mes);
+    while(mes>12||mes<1)
+    {
+        printf("ERROR. Ingrese un mes valido: ");
+        scanf("%d",&mes);
+    }
+    printf("Año: ");
+    scanf("%d",&anio);
+    while(anio>2025||anio<1800)
+    {
+        printf("ERROR. Ingrese un año valido: ");
+        scanf("%d",&anio);
     }
 
     printf("Ingrese el id de un actor:\n");
@@ -739,7 +652,7 @@ void addPeliculaMenu(ePelicula list[],int lenP,eGenero Generos[],int lenG,eActor
     printf("Ingrese el Genero del pelicula:\n");
     Genero=validateGenero(Generos,lenG);
 
-    space=addPelicula(list,ELEMENTS,titulo,fechaDeEstreno,Actor,Genero);
+    space=addPelicula(list,ELEMENTS,titulo,Actor,Genero,dia,mes,anio);
 
     if(space==0)
     {
@@ -807,7 +720,7 @@ void modifyPeliculaMenu(ePelicula list[], int lenP,eGenero Generos[],int lenG,eA
 
     if(position!=-1)
     {
-        printf("Que desea modificar del pelicula |%s,%s|?\n\n1)Titulo\n2)Fecha de estreno\n3)Genero\n4)Actor\n\n",list[position].fechaDeEstreno,list[position].titulo);
+        printf("Que desea modificar del pelicula | %s |?\n\n1)Titulo\n2)Fecha de estreno\n3)Genero\n4)Actor\n\n",list[position].titulo);
         printf("Ingrese opcion: ");
         scanf("%d",&option);
 
@@ -851,13 +764,6 @@ void modifyPeliculaMenu(ePelicula list[], int lenP,eGenero Generos[],int lenG,eA
 
 void showPeliculasMenu(ePelicula list[],int lenP,eGenero Generos[],int lenG,ePelicula copy[],eActor Actors[],int lenA)
 {
-    //float total;
-   // float average;
-    //int PeliculaSalaryAverage;
-
-    //total=salaryTotal(list,lenP);
-    //average=salaryAverage(list,lenP);
-    //PeliculaSalaryAverage=salaryAverageOvercome(list,lenP);
 
     printf("\n--LISTA DE PELICULAS--\n\n");
     printf("\tID\tFECHA DE ESTRENO\tTITULO\t\t\tGENERO\n\n");

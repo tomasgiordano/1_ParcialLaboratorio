@@ -13,13 +13,14 @@ int main()
     ePelicula list[ELEMENTS];
     initPelicula(list,ELEMENTS);
 
-    //HARDCODEAR//
-    hardcodePeliculaList(list,20);
-    //HARDCODEAR//
-
     eGenero Generos[G]={{1,"Accion"},{2,"Comedia"},{3,"Drama"},{4,"Romance"},{5,"Terror"}};
     eActor  Actors[A]={{1,"Scarlet Johansson","Argentina"},{2,"Robert Downey Jr","EEUU"},{3,"Mark Ruffalo","Canada"},{4,"Chris Evans","EEUU"},{5,"Chris Hemsworth","Argentina"},{6,"Samuel Jackson","EEUU"},{7,"Gwyneth Paltrow","Canada"},{8,"Paul Rudd","Argentina"},{9,"Bradley Cooper","EEUU"},{10,"Josh Brolin","Canada"}};
     ePelicula copy[1];
+    eFecha fecha[ELEMENTS];
+
+    //HARDCODEAR//
+    hardcodePeliculaList(list,20);
+    //HARDCODEAR//
 
     do
     {
@@ -37,7 +38,7 @@ int main()
         switch(opcion)
         {
             case 1:
-                addPeliculaMenu(list,ELEMENTS,Generos,G,Actors,A);
+                addPeliculaMenu(list,ELEMENTS,Generos,G,Actors,A,fecha);
             break;
             case 2:
                 if(oneE)

@@ -27,3 +27,17 @@
 	<ctype.h>
 	"controlABM.h"
 
+1557690809 source:c:\users\pc\desktop\parcial 1 laboratorio\1_parciallaboratorio\tomasgiordano_primerparcial\main.c
+	<stdio.h>
+	<stdlib.h>
+	"controlABM.h"
+
+1557690801 c:\users\pc\desktop\parcial 1 laboratorio\1_parciallaboratorio\tomasgiordano_primerparcial\controlabm.h
+
+1557691189 source:c:\users\pc\desktop\parcial 1 laboratorio\1_parciallaboratorio\tomasgiordano_primerparcial\controlabm.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"controlABM.h"
+

@@ -15,27 +15,28 @@ typedef struct
 
 typedef struct
 {
-    int id;
-    char titulo[26];
-    char fechaDeEstreno[12];
-    int idActor;
-    int idGenero;
-    int isEmpty;
-
-}ePelicula;
-
-typedef struct
-{
     int dia;
     int mes;
     int anio;
+
 }eFecha;
+
+typedef struct
+{
+    int id;
+    char titulo[26];
+    int idActor;
+    int idGenero;
+    eFecha fechaDeEstreno;
+    int isEmpty;
+
+}ePelicula;
 
 
 // TP FUNCTIONS //
 
 void initPelicula(ePelicula[],int len);
-int addPelicula(ePelicula[],int len,char Titulo[],char fechaDeEstreno[],float salary,int);
+int addPelicula(ePelicula[],int len,char Titulo[],int actor,int genero,int dia,int mes,int anio);
 int findPeliculaById(ePelicula[], int len,int id);
 int removePelicula(ePelicula[], int len, int id);
 void sortPeliculas(ePelicula[], int lenP,ePelicula[]);
@@ -60,7 +61,7 @@ void validarTitulo(ePelicula[],int lenP);
 
 // MENU FUNCTIONS //
 
-void addPeliculaMenu(ePelicula[],int lenP,eGenero[],int lenG,eActor[],int lenA);
+void addPeliculaMenu(ePelicula[],int lenP,eGenero[],int lenG,eActor[],int lenA,eFecha[]);
 void removePeliculaMenu(ePelicula[],int len,eGenero[],int lenG);
 void modifyPeliculaMenu(ePelicula[],int lenP,eGenero[],int lenG,eActor[],int lenA);
 void showPeliculasMenu(ePelicula[],int lenP,eGenero[],int lenG,ePelicula[],eActor[],int lenA);
